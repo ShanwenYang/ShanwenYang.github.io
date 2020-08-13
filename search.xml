@@ -70,22 +70,168 @@
       </tags>
   </entry>
   <entry>
+    <title>Offer-Week6</title>
+    <url>/2020/07/27/Offer-Week6/</url>
+    <content><![CDATA[<h1 id="0到n-1中缺失的数字"><a href="#0到n-1中缺失的数字" class="headerlink" title="0到n-1中缺失的数字"></a>0到n-1中缺失的数字</h1><p>一个长度为<strong>n-1的递增排序数组中的所有数字都是唯一的</strong>，并且每个数字都在范围0到n-1之内。在范围0到n-1的n个数字中有且只有一个数字不在该数组中，请找出这个数字。</p>
+<h4 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：[<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>]</span><br><span class="line">输出：<span class="number">3</span></span><br></pre></td></tr></table></figure>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p><strong>优化时间复杂度，高斯公式——等差数列求和</strong></p>
+<p><strong>二分查找</strong></p>
+<ol>
+<li>左子数组：$nums[i]=i$；</li>
+<li>右子数组：$nums[i]\neq i$；</li>
+</ol>
+<p>缺失数字等于<strong>右子数组的首元素</strong>对应的索引</p>
+<p><img src="/2020/07/27/Offer-Week6/01.png"></p>
+<ol>
+<li><strong>初始化</strong>：左边界$i=0$，右边界$j=nums.size() - 1$；代表区间$[i,j]$</li>
+<li><strong>循环二分</strong>：当$i\leq j$时循环<ol>
+<li>计算中点$mid=(i+j)/2$</li>
+<li>若$nums[mid]=mid$，则表示左子数组元素没有少，执行$i=mid+1$;</li>
+<li>若$nums[mid]\neq mid$，则表示左子数组元素缺失，执行$j=mid-1$;</li>
+</ol>
+</li>
+<li><strong>返回值</strong>：变量$i,j$分别指向右子数组首元素和左子数组末尾元素，返回$i$即可</li>
+</ol>
+<h4 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">missingNumber</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> n = nums.<span class="built_in">size</span>() + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> res = (n <span class="number">-1</span>) * n / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> x : nums) res -= x;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 二分法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">missingNumber</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = n;</span><br><span class="line">        <span class="keyword">while</span>(i &lt;= j)&#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (i + j) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid] == mid) i = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> j = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="数组中数值和下标相等的元素"><a href="#数组中数值和下标相等的元素" class="headerlink" title="数组中数值和下标相等的元素"></a>数组中数值和下标相等的元素</h1><p>假设一个<strong>单调递增的数组里的每个元素都是整数并且是唯一的</strong>。请编程实现一个函数找出数组中任意一个数值等于其下标的元素。例如，在数组[-3, -1, 1, 3, 5]中，数字3和它的下标相等。</p>
+<h4 id="样例-1"><a href="#样例-1" class="headerlink" title="样例"></a>样例</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：[<span class="number">-3</span>, <span class="number">-1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>]</span><br><span class="line">输出：<span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>:如果不存在，则返回-1。</p>
+<h4 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h4><p><strong>二分查找</strong></p>
+<h4 id="C-代码-1"><a href="#C-代码-1" class="headerlink" title="C++代码"></a>C++代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getNumberSameAsIndex</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(l &lt; r)&#123;</span><br><span class="line">            <span class="keyword">int</span> mid = l + r &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid] - mid &gt;= <span class="number">0</span>) r = mid;</span><br><span class="line">            <span class="keyword">else</span> l = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(nums[r] - r ==<span class="number">0</span>) <span class="keyword">return</span> r;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="二叉搜索树的第k个结点"><a href="#二叉搜索树的第k个结点" class="headerlink" title="二叉搜索树的第k个结点"></a>二叉搜索树的第k个结点</h1><p> 给定一棵二叉搜索树，请找出其中的<strong>第k小的结点</strong>。你可以假设树和k都存在，并且1≤k≤树的总结点数。</p>
+<h4 id="样例-2"><a href="#样例-2" class="headerlink" title="样例"></a>样例</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：root = [<span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>, null, null, null, null] ，k = <span class="number">3</span></span><br><span class="line">    <span class="number">2</span></span><br><span class="line">   / \</span><br><span class="line">  <span class="number">1</span>   <span class="number">3</span></span><br><span class="line">输出：<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h4 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h4><p>二叉搜索树的中序遍历为 <strong>递增序列</strong> 。 </p>
+<p>二叉搜索树的<strong>中序遍历的倒序</strong>（右、根、左）为 <strong>递减序列</strong> 。</p>
+<p>  求“二叉搜索树第$k$大的节点”可转化为求“此树的中序遍历倒序的第$k$个节点”。 </p>
+<p><img src="/2020/07/27/Offer-Week6/02.png"></p>
+<ol>
+<li><strong>终止条件：</strong>当结点为空时，返回</li>
+<li><strong>递归右子树：</strong>$dfs(root-&gt;right)$</li>
+<li><strong>三项工作：</strong><ol>
+<li>提前返回：若$k=0$，代表已经找到目标结点，无需继续遍历，返回</li>
+<li>统计序号：执行$k—$</li>
+<li>记录结果：若$k=0$，代表当前节点为第$k$大的结点，记录$res=root-&gt;val$</li>
+</ol>
+</li>
+<li><strong>递归左子树：</strong>$dfs(root-&gt;left)$</li>
+</ol>
+<h4 id="C-代码-2"><a href="#C-代码-2" class="headerlink" title="C++代码"></a>C++代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> res;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">kthLargest</span><span class="params">(TreeNode* root, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">		dfs(root, k);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(TreeNode* root, <span class="keyword">int</span> &amp;k)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">        dfs(root-&gt;right, k);</span><br><span class="line">        -- k;</span><br><span class="line">        <span class="keyword">if</span>(!k) res = root -&gt; val;</span><br><span class="line">        dfs(root -&gt; left, k);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 非递归方式</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">KthNode</span><span class="params">(TreeNode* pRoot, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">stack</span>&lt;TreeNode*&gt; stk;</span><br><span class="line">        TreeNode* cur = pRoot;</span><br><span class="line">        <span class="keyword">while</span>(cur || stk.<span class="built_in">size</span>()) &#123;</span><br><span class="line">            <span class="keyword">while</span>(cur) &#123;</span><br><span class="line">                stk.push(cur);</span><br><span class="line">                cur = cur-&gt;left;</span><br><span class="line">            &#125;</span><br><span class="line">            cur = stk.top();</span><br><span class="line">            stk.pop();</span><br><span class="line">            <span class="keyword">if</span>(-- k == <span class="number">0</span>) <span class="keyword">return</span> cur;</span><br><span class="line">            cur = cur-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="二叉树的深度"><a href="#二叉树的深度" class="headerlink" title="二叉树的深度"></a>二叉树的深度</h1><p>输入一棵二叉树的根结点，求该树的深度。从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。</p>
+<h4 id="样例-3"><a href="#样例-3" class="headerlink" title="样例"></a>样例</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：二叉树[<span class="number">8</span>, <span class="number">12</span>, <span class="number">2</span>, null, null, <span class="number">6</span>, <span class="number">4</span>, null, null, null, null]如下图所示：</span><br><span class="line">    <span class="number">8</span></span><br><span class="line">   / \</span><br><span class="line">  <span class="number">12</span>  <span class="number">2</span></span><br><span class="line">     / \</span><br><span class="line">    <span class="number">6</span>   <span class="number">4</span></span><br><span class="line">输出：<span class="number">3</span></span><br></pre></td></tr></table></figure>
+<h4 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h4><p><strong>递归</strong></p>
+<p><strong>后序遍历：</strong></p>
+<p><img src="/2020/07/27/Offer-Week6/03_1.png"></p>
+<ul>
+<li><p>树的后序遍历 / 深度优先搜索往往利用 <strong>递归</strong> 或 <strong>栈</strong> 实现，本文使用递归实现。 </p>
+</li>
+<li><p><strong>关键点：</strong> 此树的深度和其左（右）子树的深度之间的关系。显然，<strong>此树的深度</strong> 等于 <strong>左子树的深度</strong> 与 <strong>右子树的深度</strong> 中的 <strong>最大值</strong> +1 。</p>
+</li>
+</ul>
+<p><strong>算法解析：</strong></p>
+<ol>
+<li><strong>终止条件</strong>： 当<code>root</code>为空，说明已越过叶节点，因此返回深度<code>0</code>。</li>
+<li><strong>递推工作</strong>： 本质上是对树做后序遍历。<ol>
+<li>计算节点<code>root</code>的<strong>左子树的深度</strong> ，即调用<code>maxDepth(root.left)</code></li>
+<li>计算节点<code>root</code>的<strong>右子树的深度</strong> ，即调用<code>maxDepth(root.right)</code></li>
+</ol>
+</li>
+<li><strong>返回值</strong>： 返回 此树的深度 ，即<code>max(maxDepth(root.left), maxDepth(root.right)) + 1</code>。</li>
+</ol>
+<p><strong>层次遍历：</strong></p>
+<ul>
+<li>树的层序遍历 / 广度优先搜索往往利用 <strong>队列</strong> 实现。</li>
+<li><strong>关键点：</strong> 每遍历一层，则计数器+1，直到遍历完成，则可得到树的深度。</li>
+</ul>
+<p><strong>算法解析</strong>：</p>
+<ol>
+<li><strong>特例处理</strong>： 当<code>root</code>为空，直接返回深度<code>0</code>。</li>
+<li><strong>初始化</strong>： 队列<code>queue</code>（加入根节点<code>root</code>），计数器<code>res = 0</code>。</li>
+<li><strong>循环遍历</strong>： 当<code>queue</code>为空时跳出。<ol>
+<li>初始化一个空列表<code>tmp</code>，用于临时存储下一层节点；</li>
+<li>遍历队列： 遍历<code>queue</code>中的各节点<code>node</code>，并将其左子节点和右子节点加入<code>tmp</code>；</li>
+<li>更新队列： 执行<code>queue = tmp</code>，将下一层节点赋值给<code>queue</code>；</li>
+<li>统计层数： 执行<code>res += 1</code>，代表层数加<code>1</code></li>
+</ol>
+</li>
+<li><strong>返回值</strong>： 返回<code>res</code> 即可。</li>
+</ol>
+<h4 id="C-代码-3"><a href="#C-代码-3" class="headerlink" title="C++代码"></a>C++代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 后序遍历</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">TreeDepth</span><span class="params">(TreeNode* pRoot)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(TreeDepth(root -&gt; left),TreeDepth(root -&gt; right)) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 层次遍历</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">queue</span>&lt;TreeNode*&gt; q;</span><br><span class="line">        q.push(root);</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">            res++;</span><br><span class="line">            <span class="keyword">int</span> n = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">                TreeNode* node = q.front();</span><br><span class="line">                q.pop();</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left != <span class="literal">nullptr</span>) q.push(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right != <span class="literal">nullptr</span>) q.push(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h1><p>输入一棵二叉树的根结点，<strong>判断该树是不是平衡二叉树</strong>。如果某二叉树中任意结点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>规定空树也是一棵平衡二叉树。</li>
+</ul>
+<h4 id="样例-4"><a href="#样例-4" class="headerlink" title="样例"></a>样例</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：二叉树[<span class="number">5</span>,<span class="number">7</span>,<span class="number">11</span>,null,null,<span class="number">12</span>,<span class="number">9</span>,null,null,null,null]如下所示，</span><br><span class="line">    <span class="number">5</span></span><br><span class="line">   / \</span><br><span class="line">  <span class="number">7</span>  <span class="number">11</span></span><br><span class="line">    /  \</span><br><span class="line">   <span class="number">12</span>   <span class="number">9</span></span><br><span class="line">输出：<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h4 id="思路-4"><a href="#思路-4" class="headerlink" title="思路"></a>思路</h4><p><strong>遇上一题类似</strong></p>
+<p>以下两种方法均基于以下性质推出：<strong>此树的深度</strong> 等于<strong>左子树的深度</strong>与<strong>右子树的深度</strong>中的<strong>最大值</strong>+1。</p>
+<h4 id="C-代码-4"><a href="#C-代码-4" class="headerlink" title="C++代码"></a>C++代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 后序遍历</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">bool</span> ans = <span class="literal">true</span>;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">IsBalanced_Solution</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">		dfs(root);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> left = dfs(root -&gt; left), right = dfs(root -&gt; right);</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">abs</span>(left - right) &gt; <span class="number">1</span>) ans = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(left, right) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="数组中只出现过一次的两个数字"><a href="#数组中只出现过一次的两个数字" class="headerlink" title="数组中只出现过一次的两个数字"></a>数组中只出现过一次的两个数字</h1><p>一个整型数组里除了两个数字之外，其他的数字都出现了两次。请写程序找出这两个只出现一次的数字。你可以假设这两个数字一定存在。</p>
+<h4 id="样例-5"><a href="#样例-5" class="headerlink" title="样例"></a>样例</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">4</span>]</span><br><span class="line">输出：[<span class="number">1</span>,<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+<h4 id="思路-5"><a href="#思路-5" class="headerlink" title="思路"></a>思路</h4><p> <strong>位运算，分组异或操作</strong></p>
+<ol>
+<li>将所有数进行异或操作，得到<code>x^y</code>的结果</li>
+<li>找到<code>x^y</code>的第<code>k</code>位为1</li>
+<li>根据第<code>k</code>位为0或1的情况，将数组分成两个集合（<code>x</code>和<code>y</code>分别位于两个集合）</li>
+<li>对两个集合再次进行异或操作，得到<code>x</code>和<code>y</code></li>
+</ol>
+<h4 id="C-代码-5"><a href="#C-代码-5" class="headerlink" title="C++代码"></a>C++代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">FindNumsAppearOnce</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; data,<span class="keyword">int</span>* num1,<span class="keyword">int</span> *num2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> x : data) sum ^= x;</span><br><span class="line">        <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(!(sum &gt;&gt; k &amp; <span class="number">1</span>)) k ++;</span><br><span class="line">        *num1 = <span class="number">0</span>, *num2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> x : data)</span><br><span class="line">            <span class="keyword">if</span>(x &gt;&gt; k &amp; <span class="number">1</span>)</span><br><span class="line">                *num1 ^= x;</span><br><span class="line">        *num2 = *num1 ^ sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="数组中唯一只出现一次的数字"><a href="#数组中唯一只出现一次的数字" class="headerlink" title="数组中唯一只出现一次的数字"></a>数组中唯一只出现一次的数字</h1><p>在一个数组中除了一个数字只出现一次之外，其他数字都出现了三次。请找出那个只出现一次的数字。你可以假设满足条件的数字一定存在。</p>
+<p><strong>思考题：</strong></p>
+<ul>
+<li>如果要求只使用O(n)的时间和额外O(1)的空间，该怎么做呢？</li>
+</ul>
+<h4 id="样例-6"><a href="#样例-6" class="headerlink" title="样例"></a>样例</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">4</span>]</span><br><span class="line">输出：<span class="number">3</span></span><br></pre></td></tr></table></figure>
+<h4 id="思路-6"><a href="#思路-6" class="headerlink" title="思路"></a><a href="https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/solution/mian-shi-ti-56-ii-shu-zu-zhong-shu-zi-chu-xian-d-4/" target="_blank" rel="noopener">思路</a></h4><p><strong>二进制，有限状态机</strong></p>
+<ol>
+<li>对于出现三次的数字，各<strong>二进制位</strong>出现的次数都是3的倍数。 </li>
+<li>统计所有数字的各二进制位中1的出现次数，并对3求余，结果则为只出现一次的数字。 </li>
+</ol>
+<p><img src="/2020/07/27/Offer-Week6/04.png"></p>
+<h4 id="C-代码-6"><a href="#C-代码-6" class="headerlink" title="C++代码"></a>C++代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">singleNumber</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> ones = <span class="number">0</span>, twos = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> x : nums)&#123;</span><br><span class="line">            ones = (ones ^ x) &amp; ~twos;</span><br><span class="line">            twos = (twos ^ x) &amp; ~ones;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ones;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="和为S的两个数字"><a href="#和为S的两个数字" class="headerlink" title="和为S的两个数字"></a>和为S的两个数字</h1><p>输入一个数组和一个数字s，在数组中查找两个数，使得它们的和正好是s。如果有多对数字的和等于s，输出任意一对即可。你可以认为每组输入中都至少含有一组满足条件的输出。</p>
+<h4 id="样例-7"><a href="#样例-7" class="headerlink" title="样例"></a>样例</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>] , sum=<span class="number">7</span></span><br><span class="line">输出：[<span class="number">3</span>,<span class="number">4</span>]</span><br></pre></td></tr></table></figure>
+<h4 id="思路-7"><a href="#思路-7" class="headerlink" title="思路"></a>思路</h4><p><strong>双指针</strong></p>
+<p><img src="/2020/07/27/Offer-Week6/05.png"></p>
+<h4 id="C-代码-7"><a href="#C-代码-7" class="headerlink" title="C++代码"></a>C++代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 哈希</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; hash;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i ++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(hash.count(target - nums[i]))</span><br><span class="line">                <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &#123;target - nums[i], nums[i]&#125;;</span><br><span class="line">            hash.insert(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 双指针</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">FindNumbersWithSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums,<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() &lt; <span class="number">1</span>) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; j)&#123;</span><br><span class="line">            <span class="keyword">int</span> sum = nums[i] + nums[j];</span><br><span class="line">            <span class="keyword">if</span>(sum &gt; target)</span><br><span class="line">                j --;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(sum &lt; target)</span><br><span class="line">                i ++;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&#123;nums[i],nums[j]&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>&#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="和为S的连续正整数序列"><a href="#和为S的连续正整数序列" class="headerlink" title="和为S的连续正整数序列"></a>和为S的连续正整数序列</h1><p>输入一个正数s，打印出所有和为s的连续正数序列（至少含有两个数）。例如输入15，由于1+2+3+4+5=4+5+6=7+8=15，所以结果打印出3个连续序列1～5、4～6和7～8。</p>
+<h4 id="样例-8"><a href="#样例-8" class="headerlink" title="样例"></a>样例</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：<span class="number">15</span></span><br><span class="line">输出：[[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>],[<span class="number">7</span>,<span class="number">8</span>]]</span><br></pre></td></tr></table></figure>
+<h4 id="思路-8"><a href="#思路-8" class="headerlink" title="思路"></a>思路</h4><p><strong>双指针，滑动窗口</strong></p>
+<p><img src="/2020/07/27/Offer-Week6/06.png"></p>
+<h4 id="C-代码-8"><a href="#C-代码-8" class="headerlink" title="C++代码"></a>C++代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; <span class="title">FindContinuousSequence</span><span class="params">(<span class="keyword">int</span> sum)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>, j = <span class="number">1</span>, s = <span class="number">1</span>; i &lt;= sum; i ++)&#123;</span><br><span class="line">            <span class="keyword">while</span>(s &lt; sum) s += ++ j;</span><br><span class="line">            <span class="keyword">if</span>(s == sum &amp;&amp; j - i + <span class="number">1</span> &gt; <span class="number">1</span>)&#123;</span><br><span class="line">                <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">line</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k = i; k &lt;= j; k ++) <span class="built_in">line</span>.push_back(k);</span><br><span class="line">                res.push_back(<span class="built_in">line</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            s -= i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="翻转单词顺序"><a href="#翻转单词顺序" class="headerlink" title="翻转单词顺序"></a>翻转单词顺序</h1><p>输入一个英文句子，翻转句子中单词的顺序，但单词内字符的顺序不变。为简单起见，标点符号和普通字母一样处理。例如输入字符串<code>&quot;I am a student.&quot;</code>，则输出<code>&quot;student. a am I&quot;</code>。</p>
+<h4 id="样例-9"><a href="#样例-9" class="headerlink" title="样例"></a>样例</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：<span class="string">"I am a student."</span></span><br><span class="line">输出：<span class="string">"student. a am I"</span></span><br></pre></td></tr></table></figure>
+<h4 id="思路-9"><a href="#思路-9" class="headerlink" title="思路"></a>思路</h4><p><strong>双指针</strong></p>
+<h4 id="C-代码-9"><a href="#C-代码-9" class="headerlink" title="C++代码"></a>C++代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 双指针</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">ReverseSentence</span><span class="params">(<span class="built_in">string</span> str)</span> </span>&#123;</span><br><span class="line">        reverse(str.<span class="built_in">begin</span>(), str.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.<span class="built_in">size</span>(); i ++)&#123;</span><br><span class="line">            <span class="keyword">int</span> j = i;</span><br><span class="line">            <span class="keyword">while</span>(j &lt; str.<span class="built_in">size</span>() &amp;&amp; str[j] != <span class="string">' '</span>) j ++;</span><br><span class="line">            reverse(str.<span class="built_in">begin</span>() + i, str.<span class="built_in">begin</span>() + j);</span><br><span class="line">            i = j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> str;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="左旋转字符串"><a href="#左旋转字符串" class="headerlink" title="左旋转字符串"></a>左旋转字符串</h1><p>字符串的左旋转操作是把字符串前面的若干个字符转移到字符串的尾部。请定义一个函数实现字符串左旋转操作的功能。比如输入字符串<code>&quot;abcdefg&quot;</code>和数字2，该函数将返回左旋转2位得到的结果<code>&quot;cdefgab&quot;</code>。</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>数据保证n小于等于输入字符串的长度。</li>
+</ul>
+<h4 id="样例-10"><a href="#样例-10" class="headerlink" title="样例"></a>样例</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：<span class="string">"abcdefg"</span> , n=<span class="number">2</span></span><br><span class="line">输出：<span class="string">"cdefgab"</span></span><br></pre></td></tr></table></figure>
+<h4 id="思路-10"><a href="#思路-10" class="headerlink" title="思路"></a>思路</h4><p><strong>操作分解</strong></p>
+<ol>
+<li>反转整个字符串序列</li>
+<li>反转两个字符串子序列</li>
+</ol>
+<h4 id="C-代码-10"><a href="#C-代码-10" class="headerlink" title="C++代码"></a>C++代码</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">LeftRotateString</span><span class="params">(<span class="built_in">string</span> str, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        reverse(str.<span class="built_in">begin</span>(),str.<span class="built_in">end</span>());</span><br><span class="line">        reverse(str.<span class="built_in">begin</span>(), str.<span class="built_in">begin</span>() + str.<span class="built_in">size</span>() - n);</span><br><span class="line">        reverse(str.<span class="built_in">begin</span>() + str.<span class="built_in">size</span>() - n, str.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">return</span> str;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>刷题</category>
+      </categories>
+      <tags>
+        <tag>刷题</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>计算机网络——概念、组成、功能和分类</title>
     <url>/2020/07/23/ComputerNetwork01/</url>
-    <content><![CDATA[<h4 id="计算机网络的功能"><a href="#计算机网络的功能" class="headerlink" title="计算机网络的功能"></a>计算机网络的功能</h4><ol>
-<li><strong>数据通信</strong></li>
-<li><strong>资源共享</strong></li>
-<li>分布式处理</li>
-<li>提高可靠性</li>
-<li>负载均衡</li>
-</ol>
-<h4 id="组成部分"><a href="#组成部分" class="headerlink" title="组成部分"></a>组成部分</h4><p><strong>硬件、软件和协议</strong></p>
-<h4 id="工作方式"><a href="#工作方式" class="headerlink" title="工作方式"></a>工作方式</h4><p>边缘部分（C/S、P2P）——用户直接使用</p>
-<p>核心部分——为边缘部分提供服务</p>
-<h4 id="功能组成"><a href="#功能组成" class="headerlink" title="功能组成"></a>功能组成</h4><p>通信子网——数据通信</p>
-<p>资源子网——资源共享</p>
+    <content><![CDATA[<h1 id="计算机网络基础概念"><a href="#计算机网络基础概念" class="headerlink" title="计算机网络基础概念"></a>计算机网络基础概念</h1><p><strong>计算机网络的功能：数据通信、资源共享</strong>、分布式处理、提高可靠性、负载均衡</p>
+<p><strong>组成部分：硬件、软件和协议</strong></p>
+<p><strong>工作方式：</strong>边缘部分（C/S、P2P）——用户直接使用；核心部分——为边缘部分提供服务</p>
+<p><strong>功能组成：</strong>通信子网——数据通信；资源子网——资源共享</p>
 <p><img src="/2020/07/23/ComputerNetwork01/01.png" style="width:60%"></p>
-<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>范围：广域网（交换）、城域网、局域网（广播）、个人区域网</p>
+<p><strong>分类：</strong></p>
+<p>范围：广域网（交换）、城域网、局域网（广播）、个人区域网</p>
 <p>使用者：公用、专用</p>
 <p>交换技术：电路交换、报文交换、分组交换</p>
 <p>拓扑：总线型、星型、环形、网状</p>
@@ -152,8 +298,132 @@
 <li>流量控制</li>
 </ol>
 <p><strong>物理层</strong>：</p>
-<h4 id="TCP-IP模型"><a href="#TCP-IP模型" class="headerlink" title="TCP/IP模型"></a>TCP/IP模型</h4><p><img src="/2020/07/23/ComputerNetwork01/TCPIP.png" style="width:60%"></p>
-<h4 id="5层体系结构"><a href="#5层体系结构" class="headerlink" title="5层体系结构"></a>5层体系结构</h4>]]></content>
+<h4 id="TCP-IP模型"><a href="#TCP-IP模型" class="headerlink" title="TCP/IP模型"></a>TCP/IP模型</h4><p><img src="/2020/07/23/ComputerNetwork01/TCPIP.png"></p>
+<h4 id="5层体系结构"><a href="#5层体系结构" class="headerlink" title="5层体系结构"></a>5层体系结构</h4><p><img src="/2020/07/23/ComputerNetwork01/5leve.png"></p>
+<h5 id="封装与解封"><a href="#封装与解封" class="headerlink" title="封装与解封"></a>封装与解封</h5><p><img src="/2020/07/23/ComputerNetwork01/5leve_1.png"></p>
+<h3 id="两个公式——重点"><a href="#两个公式——重点" class="headerlink" title="两个公式——重点"></a>两个公式——重点</h3><p>物理层解决如何在连接各种计算机的传输媒体上传输数据比特流，而不是指具体的传输媒体</p>
+<p>主要任务：确定与传输媒体接口有关的一些特性——定义标准</p>
+<p>特性：机械、电气（二进制）、功能、规程</p>
+<h4 id="数据通信——传输消息"><a href="#数据通信——传输消息" class="headerlink" title="数据通信——传输消息"></a>数据通信——传输消息</h4><p><img src="/2020/07/23/ComputerNetwork01/dm.png"></p>
+<p>基本方式：<strong>单工通信、半双工通信、全双工通信</strong></p>
+<p>数据传输：<strong>串行传输、并行传输</strong></p>
+<p><img src="/2020/07/23/ComputerNetwork01/dend.png"></p>
+<h3 id="奈氏准者、香浓定理"><a href="#奈氏准者、香浓定理" class="headerlink" title="奈氏准者、香浓定理"></a>奈氏准者、香浓定理</h3><p> 失真：</p>
+<p><img src="/2020/07/23/ComputerNetwork01/loss.png"></p>
+<h2 id="网络IP地址"><a href="#网络IP地址" class="headerlink" title="网络IP地址"></a>网络IP地址</h2><p><img src="/2020/07/23/ComputerNetwork01/IP.png"></p>
+<p>IP分类</p>
+<p><img src="/2020/07/23/ComputerNetwork01/ip2.png"></p>
+<p><strong>特殊IP</strong></p>
+<p><img src="/2020/07/23/ComputerNetwork01/ip3.png"></p>
+<p>私有地址</p>
+<p><img src="/2020/07/23/ComputerNetwork01/ip4.png"></p>
+<p>联系</p>
+<p><img src="/2020/07/23/ComputerNetwork01/ip5.png"></p>
+<h2 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h2><p><img src="/2020/07/23/ComputerNetwork01/ip6.png"></p>
+<h4 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h4><p><img src="/2020/07/23/ComputerNetwork01/ip7.png"></p>
+<h1 id="1-传输层"><a href="#1-传输层" class="headerlink" title="1. 传输层"></a>1. 传输层</h1><h2 id="1-1-传输层的功能"><a href="#1-1-传输层的功能" class="headerlink" title="1.1 传输层的功能"></a>1.1 传输层的功能</h2><p><img src="/2020/07/23/ComputerNetwork01/传输层功能1.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/传输层功能3.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/传输层功能2.png"></p>
+<h2 id="1-2-传输层的寻址与端口"><a href="#1-2-传输层的寻址与端口" class="headerlink" title="1.2 传输层的寻址与端口"></a>1.2 传输层的寻址与端口</h2><p><img src="/2020/07/23/ComputerNetwork01/端口1.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/端口2.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/端口3.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/端口4.png"></p>
+<h2 id="1-3-无连接服务与面向连接服务"><a href="#1-3-无连接服务与面向连接服务" class="headerlink" title="1.3 无连接服务与面向连接服务"></a>1.3 无连接服务与面向连接服务</h2><ol>
+<li><strong>面向连接服务（TCP）</strong>：通信双方在通信之前，必须先建立连接（三次握手），在通信过程中，整个连接的情况一直被实施地监控和管理。通信结束后，应该释放这个连接（四次挥手）。<strong>双工可靠逻辑信道</strong>。增加许多占用处理机资源地开销：<strong>确认、流量控制、计时器、连接管理</strong>等——使得协议数据单元头部增大，<strong>适用于文件传输（FTP）、超文本传输协议（HTTP）、远程登陆（TELNET）</strong>。</li>
+<li><strong>无连接服务（UDP）</strong>：实体之间的通信不需要事先建立好连接，需要通信时，直接将消息发送到“网络”中，让该信息地传递在网络上尽力而为地往目的地传送。<strong>不可靠逻辑信道</strong>。<strong>简单，实时性好，适用于小文件传输（TFTP）、DNS、SNMP、实时传输协议（RTP）</strong>。</li>
+</ol>
+<p><strong>信息都对路由不可见</strong>。</p>
+<p><img src="/2020/07/23/ComputerNetwork01/tcpudp.png"></p>
+<h1 id="2-UDP协议"><a href="#2-UDP协议" class="headerlink" title="2. UDP协议"></a>2. UDP协议</h1><p>无连接用户数据报协议，仅在IP数据服务之上增加了两个基本服务：复用/分用和差错检验。</p>
+<ol>
+<li>适用于一次性传输较少数据的网络应用（QQ表情、视频通话）；</li>
+<li>维护传输可靠性需要在应用层完成。</li>
+<li>发送方对应用层交付下来的报文添加首部后就交付给IP层，既不合并，也不拆分，保留报文的边界；接收方在接收IP层的UDP用户数据报，去除首部后直接交付给应用进程——<strong>报文不可分割，是UDP数据处理的最小单位</strong>。</li>
+</ol>
+<p><img src="/2020/07/23/ComputerNetwork01/UDP1.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/UDP2.png"></p>
+<h2 id="2-1-UDP报文格式"><a href="#2-1-UDP报文格式" class="headerlink" title="2.1 UDP报文格式"></a>2.1 UDP报文格式</h2><p><img src="/2020/07/23/ComputerNetwork01/UDP3.PNG"></p>
+<h2 id="2-2-UDP校验"><a href="#2-2-UDP校验" class="headerlink" title="2.2 UDP校验"></a>2.2 UDP校验</h2><p>在UDP数据报之前增加12B的伪首部，在计算校验时临时添加，校验和就按照这个临时的UDP数据包计算。<strong>伪首部既不向上传送也不向下递交，仅为了校验和</strong>。</p>
+<p><img src="/2020/07/23/ComputerNetwork01/UDP4.PNG"></p>
+<p><strong>二进制反码运算求和再取反（还要校验数据部分）</strong>：</p>
+<p><img src="/2020/07/23/ComputerNetwork01/UDP5.PNG"></p>
+<h1 id="3-TCP协议"><a href="#3-TCP协议" class="headerlink" title="3. TCP协议"></a>3. TCP协议</h1><p>在不可靠IP层实现可靠传输——解决传输的可靠、有序、无丢失、不重复。</p>
+<p><img src="/2020/07/23/ComputerNetwork01/tcp.png"></p>
+<h2 id="3-1-TCP报文格式"><a href="#3-1-TCP报文格式" class="headerlink" title="3.1 TCP报文格式"></a>3.1 TCP报文格式</h2><p>数据传送单元：<strong>报文段</strong>——TCP首部、TCP数据，整个报文段作为IP数据报的数据部分封装在IP数据报中。首部20B 是固定的。</p>
+<p><img src="/2020/07/23/ComputerNetwork01/TCP1_2.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/TCP1_3.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/TCP1_4.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/tcp1.png"><img src="/2020/07/23/ComputerNetwork01/tcp2.png"></p>
+<h2 id="3-2-TCP连接管理（三次握手）"><a href="#3-2-TCP连接管理（三次握手）" class="headerlink" title="3.2 TCP连接管理（三次握手）"></a>3.2 TCP连接管理（三次握手）</h2><p><img src="/2020/07/23/ComputerNetwork01/TCP1_5.png"></p>
+<p>TCP把连接作为最基本的抽象，每条TCP连接有两个端点，TCP连接的端点不是主机、IP地址、应用进程、传输层的协议端口，<strong>TCP连接的端口成为套接字或插口</strong>。</p>
+<p>TCP连接的建立应采用客户机/服务器方式，主动发起连接的应用进程称为客户机，被动等待连接建立的应用进程称为服务器。</p>
+<p><img src="/2020/07/23/ComputerNetwork01/tcpsend.png"></p>
+<ol>
+<li><p><strong>第一步</strong>：<strong>请求报文段：SYN=1，ACK=0，seq=x</strong>。</p>
+<p>客户机的TCP首先向服务器的TCP发送一个请求报文段。<strong>不含应用层数据，SYN=1</strong>。客户机随机选择一个起始序列号（连接请求报文段不携带数据，但消耗一个序号段）。</p>
+</li>
+<li><p><strong>第二步</strong>：<strong>服务器确认报文段：SYN=1，ACK=1，seq=y，ack=x+1（确认号字段）</strong></p>
+<p>服务器的TCP收到连接请求报文段后，如果同意连接，就像客户机发回确认，并为该TCP连接分配TCP<strong>缓存和变量</strong>。在<strong>确认报文段中，SYN和ACK位都被置为1</strong>。（确认报文段不携带数据，但消耗一个序号段）</p>
+</li>
+<li><p><strong>第三步</strong>：<strong>客户端确认报文段：SYN=1，ACK=1，seq=x+1，ack=y+1（确认号字段）</strong>。</p>
+<p>当客户端收到确认报文段之后，还要向服务器给出确认，并且也要给该连接<strong>分配缓存和变量</strong>。（可以携带数据，若不携带则不消耗序号）</p>
+</li>
+</ol>
+<p><img src="/2020/07/23/ComputerNetwork01/3woshou.png"></p>
+<p>成功进行以上三步，就建立了TCP连接。接下来就可以传输应用层数据，TCP提供的时双工通信，因此通信双方的应用进程任意时刻都能收发数据。<strong>服务器资源是在第二次握手分配，客户端资源在第三次握手分配</strong>。</p>
+<h2 id="3-3-TCP连接的释放（四次挥手）"><a href="#3-3-TCP连接的释放（四次挥手）" class="headerlink" title="3.3 TCP连接的释放（四次挥手）"></a>3.3 TCP连接的释放（四次挥手）</h2><p><img src="/2020/07/23/ComputerNetwork01/4huishou.png"></p>
+<ol>
+<li><p><strong>第一步</strong>：<strong>客户机释放连接报文段：FIN=1，seq=u</strong>（u等于前面已经传送过去的数据最后一个字节序号+1）</p>
+<p>客户机打算关闭连接，向其TCP<strong>发送一个连接释放报文段</strong>，并<strong>停止发送数据</strong>，<strong>主动关闭TCP连接</strong>。<strong>发送FIN报文时，发送FIN的一端不能再发送数据</strong>，即关闭了双工中的一条数据通路，但是<strong>对方还可以发送数据</strong>。</p>
+</li>
+<li><p><strong>第二步</strong>：<strong>服务器确认报文：ack=u+1</strong></p>
+<p>服务器自己的序号是v，等于已经传过的数据的最后一个字节的序号+1。服务器收到连接释放报文后发出确认，即从客户端到服务器指个方向的连接释放。<strong>TCP处于半关闭状态</strong>，若服务器继续发送数据，客户端仍要接收。</p>
+</li>
+<li><p><strong>第三步</strong>：<strong>服务器释放报文段：FIN=1</strong>。</p>
+<p>若服务器已经没有要向客户机发送的数据，就通知TCP释放此链接，此时其发处FIN=1的连接释放报文段。</p>
+</li>
+<li><p><strong>第四步</strong>：<strong>客户机确认报文：ACK=1，ack=w+1，seq=u+1</strong>。</p>
+<p>客户机收到连接释放报文段，必须发出确认。TCP连接还未释放，<strong>必须经过时间等待计时器设置的时间2MSL后，A才进入连接关闭状态</strong>。</p>
+</li>
+</ol>
+<p><img src="/2020/07/23/ComputerNetwork01/4woshou1.png"></p>
+<h1 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h1><p><img src="/2020/07/23/ComputerNetwork01/TCP1_6.png"></p>
+<h2 id="4-1-洪泛攻击"><a href="#4-1-洪泛攻击" class="headerlink" title="4.1 洪泛攻击"></a>4.1 洪泛攻击</h2><p><img src="/2020/07/23/ComputerNetwork01/hongfan.png"></p>
+<h1 id="5-TCP可靠传输"><a href="#5-TCP可靠传输" class="headerlink" title="5. TCP可靠传输"></a>5. TCP可靠传输</h1><p>保证接收方进程从缓存区中读取的字节流与发送方发出的字节流完全一样，使用<strong>校验</strong>、<strong>序号</strong>、<strong>确认</strong>、<strong>重传</strong>等机制。</p>
+<p><strong>1. 序号</strong></p>
+<p>首部序号字段用于保证数据能<strong>有序地提交给应用层</strong>，TCP把数据视为一个<strong>无结构但有序地字节流</strong>，序号建立在传送的字节流上，而不建立在报文段上。序号字段的值就是指本报文段所发送的数据的第一个字节的编号。<img src="/2020/07/23/ComputerNetwork01/TCPNO.png"></p>
+<p><strong>2. 确认</strong></p>
+<p>TCP首部确认号是<strong>期望收到对方的下一个报文的数据的第一个字节的序号</strong>。<strong>发送缓冲区会继续存储那些以发送但未收到确认的报文段，以便在需要时重传</strong>。使用<strong>累积确认</strong>，即TCP<strong>只确认数据流中至第一个丢失字节为止的字节</strong>。如：B收到了A发送的0~2及6~7报文段，由于某种原因，B还未收到3~5，此时<strong>B仍在等待字节3（</strong>和其后面的字节），B到A的下一个报文段将<strong>确认号置为3</strong>。</p>
+<p><img src="/2020/07/23/ComputerNetwork01/ack1.png"><img src="/2020/07/23/ComputerNetwork01/ack2.png"></p>
+<p><strong>3. 重传</strong></p>
+<p>两种事件：超时、冗余ACK</p>
+<p><strong>超时</strong>：<strong>在规定时间内没受到接收方的确认就需要重传——超时重传</strong>TCP每发送一个报文段，就对这个报文段设置一次计时器。计时器设置的重传时间到期但还未收到确认是，就要重传这个报文段。</p>
+<p><strong>冗余ACK</strong>：超时重传的超时周期太长。在超时发生之前，通过注意冗余ACK来检测丢包的情况。<strong>冗余：再次确认某个报文段的ACK，而发送方先前已经受到过该报文的确认</strong>。每当比期望到达序列号大的失序报文到达时，及发送一个冗余ACK，指明下一个期望收到的报文。</p>
+<p><img src="/2020/07/23/ComputerNetwork01/ackack.png"></p>
+<h2 id="5-1-TCP流量控制——滑动窗口"><a href="#5-1-TCP流量控制——滑动窗口" class="headerlink" title="5.1 TCP流量控制——滑动窗口"></a>5.1 TCP流量控制——滑动窗口</h2><p>消除发送方使接收方缓存溢出的可能性——<strong>速度匹配服务</strong>。<strong>利用滑动窗口机制实现流量控制，大小可动态变化</strong></p>
+<p><img src="/2020/07/23/ComputerNetwork01/wwindow.png"></p>
+<p>主机A向主机B发送数据，B说：我的rwnd=400字节</p>
+<p><img src="/2020/07/23/ComputerNetwork01/windows.png"></p>
+<h2 id="5-2-TCP拥塞控制"><a href="#5-2-TCP拥塞控制" class="headerlink" title="5.2 TCP拥塞控制"></a>5.2 TCP拥塞控制</h2><p><strong>防止过多的数据注入网络，保证网络中的路由或链路不致过载</strong>。与流量控制相似，都通过控制发送方发送数据的速率来达到控制效果。</p>
+<p><strong>区别</strong>：</p>
+<ul>
+<li><strong>拥塞控制</strong>——<strong>让网络能够承受现有的网络负荷</strong>，是一个<strong>全局性</strong>的过程，涉及所有主机、所有路由器、以及与降低网络传输性能有关的所有因素。</li>
+<li><strong>流量控制</strong>——<strong>抑制发送端发送数据的速率，以便接收方来得及接收</strong>。<strong>点对点的通信量控制</strong>，即接收端和发送端。</li>
+</ul>
+<p><img src="/2020/07/23/ComputerNetwork01/拥塞控制.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/拥塞控制1.png"></p>
+<p><strong>慢开始和拥塞避免</strong>：接收窗口的大小可根据TCP报文首部的窗口字段通知发送方，但是发送方如何维护？</p>
+<p><img src="/2020/07/23/ComputerNetwork01/慢开始拥塞避免.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/慢开始拥塞避免1.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/慢开始拥塞避免2.png"></p>
+<p><strong>快重传和快恢复</strong>：对慢开始和拥塞避免算法的改进</p>
+<p><img src="/2020/07/23/ComputerNetwork01/快重传快恢复.png"></p>
+<p><strong>流量控制</strong>：发送方的数据量由就受访定</p>
+<p><strong>拥塞控制</strong>：发送方自己通过检测网络状况决定</p>
+<p><strong>超时</strong>：慢开始和拥塞避免</p>
+<p><strong>冗余</strong>：快重传快恢复</p>
+<p>发送方窗口的实际大小由流量控制和拥塞控制共同决定，且<strong>取rwnd接收窗口和cwnd拥塞窗口中较小</strong>的。</p>
+]]></content>
       <categories>
         <category>计算机网络</category>
       </categories>
@@ -1814,6 +2084,47 @@ grid[i,j]+max[f[i,j-1],f[i-1,j]]——i\neq0,j\neq0\\
       </tags>
   </entry>
   <entry>
+    <title>LeetCode探索——栈和队列</title>
+    <url>/2020/06/23/leetcode-explore-stackqueue/</url>
+    <content><![CDATA[<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><ul>
+<li><strong>实现</strong></li>
+</ul>
+<p>动态数组</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyStack</span>&#123;</span></span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; data;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 入栈</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">        data.push_back(x);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 判空</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">isEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data.empty();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 返回栈顶</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">top</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data.back();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 弹栈</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(isEmpty())</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        data.pop_back();</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>最小栈——借助辅助栈</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinStack</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; x_stack;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; min_stack;</span><br><span class="line">    MinStack()&#123;</span><br><span class="line">        min_stack.push(INT_MAX);		<span class="comment">// 最小栈的初始化</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">        x_stack.push(x);</span><br><span class="line">        min_stack.push(<span class="built_in">min</span>(x,min_stack.top());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">void</span> pop()&#123;</span><br><span class="line">        x_stack.pop();</span><br><span class="line">        min_stack.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> top()&#123;</span><br><span class="line">        <span class="keyword">return</span> x_stack.top();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> getMin()&#123;</span><br><span class="line">        <span class="keyword">return</span> min_stack.top;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>有效的括号</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isValid</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 特殊判断</span></span><br><span class="line">        <span class="keyword">if</span>(str.empty())</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span>(str.<span class="built_in">size</span>() % <span class="number">2</span> == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">char</span>&gt; s;</span><br><span class="line">        <span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(idx&lt;str.<span class="built_in">size</span>())&#123;		<span class="comment">// 依次入栈</span></span><br><span class="line">            <span class="keyword">if</span>(s.empty())</span><br><span class="line">                s.push(str[idx++]);</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(str[idx]==<span class="string">')'</span>&amp;&amp;s.top()==<span class="string">'('</span> || str[idx]==<span class="string">'&#125;'</span>&amp;&amp;s.top()==<span class="string">'&#123;'</span> || str[idx]==<span class="string">']'</span>&amp;&amp;s.top()==<span class="string">'['</span>)		<span class="comment">// 匹配， 则弹出</span></span><br><span class="line">                    s.pop();</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    s.push(str[idx]);	<span class="comment">// 继续入栈</span></span><br><span class="line">                </span><br><span class="line">                idx++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(s.empty())</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;  <span class="comment">// 执行完毕栈为空，返回true</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;	<span class="comment">// 反之返回false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>每日气温——单调栈</li>
+</ul>
+<ol>
+<li>遍历每日温度，维护一个单调栈<ol>
+<li>若栈为空或者当日温度小于等于栈顶温度则直接入栈</li>
+<li>反之，若当日温度大于栈顶温度，说明栈顶元素的升温已经找到，则将该元素出栈，计算其与当日相差天数即可</li>
+</ol>
+</li>
+<li>注意题目要求是升温的天数，而不是升温后的温度，因此栈中应该存储下表，而非温度</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dailyTemperatures</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; T)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">        <span class="keyword">int</span> n=T.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">ans</span><span class="params">(n)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i)&#123;</span><br><span class="line">            <span class="keyword">while</span>(!s.empty()&amp;&amp;T[i]&gt;T[s.top()])&#123;</span><br><span class="line">                <span class="keyword">int</span> previousIndex =s.top();</span><br><span class="line">                ans[previousIndex]=i-previousIndex;</span><br><span class="line">                s.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            s.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>逆波兰表达式</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">evalRPN</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; tokens)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">string</span> <span class="title">int2string</span><span class="params">(<span class="keyword">int</span> x)</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">string2int</span><span class="params">(<span class="built_in">string</span> s)</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">compute</span><span class="params">(<span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt;&amp;m_sta,<span class="built_in">string</span> s)</span></span>;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt;m_sta;</span><br><span class="line">        <span class="built_in">string</span> s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i=<span class="number">0</span>;i&lt;tokens.<span class="built_in">size</span>();++i)</span><br><span class="line">        &#123;</span><br><span class="line">            s=tokens[i];</span><br><span class="line">            <span class="keyword">if</span>(s==<span class="string">"+"</span>||s==<span class="string">"-"</span>||s==<span class="string">"*"</span>||s==<span class="string">"/"</span>)</span><br><span class="line">                compute(m_sta,s);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                m_sta.push(s);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans=string2int(m_sta.top());</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">int2string</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="built_in">stringstream</span> str;</span><br><span class="line">    str&lt;&lt;x;</span><br><span class="line">    str&gt;&gt;s;</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">string2int</span><span class="params">(<span class="built_in">string</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    <span class="built_in">stringstream</span> str;</span><br><span class="line">    str&lt;&lt;s;</span><br><span class="line">    str&gt;&gt;x;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">compute</span><span class="params">(<span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt;&amp;m_sta,<span class="built_in">string</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=string2int(m_sta.top());</span><br><span class="line">    m_sta.pop();</span><br><span class="line">    <span class="keyword">int</span> b=string2int(m_sta.top());</span><br><span class="line">    m_sta.pop();</span><br><span class="line">    <span class="built_in">string</span> ans;</span><br><span class="line">    <span class="keyword">if</span>(s==<span class="string">"+"</span>)</span><br><span class="line">        ans=int2string(b+a);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(s==<span class="string">"-"</span>)</span><br><span class="line">        ans=int2string(b-a);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(s==<span class="string">"*"</span>)</span><br><span class="line">        ans=int2string(b*a);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        ans=int2string(b/a);</span><br><span class="line">    m_sta.push(ans);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>刷题</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode探索——二叉树</title>
     <url>/2020/06/23/leetcode-explore-binarytree/</url>
     <content><![CDATA[<h2 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h2><ul>
@@ -1858,47 +2169,6 @@ grid[i,j]+max[f[i,j-1],f[i-1,j]]——i\neq0,j\neq0\\
 <li><strong>从前序和后序遍历序列构造二叉树</strong></li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; preorder, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; postorder)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>刷题</tag>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode探索——栈和队列</title>
-    <url>/2020/06/23/leetcode-explore-stackqueue/</url>
-    <content><![CDATA[<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><ul>
-<li><strong>实现</strong></li>
-</ul>
-<p>动态数组</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyStack</span>&#123;</span></span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; data;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 入栈</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">        data.push_back(x);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 判空</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">isEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data.empty();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 返回栈顶</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">top</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data.back();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 弹栈</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(isEmpty())</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        data.pop_back();</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>最小栈——借助辅助栈</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinStack</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; x_stack;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; min_stack;</span><br><span class="line">    MinStack()&#123;</span><br><span class="line">        min_stack.push(INT_MAX);		<span class="comment">// 最小栈的初始化</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">        x_stack.push(x);</span><br><span class="line">        min_stack.push(<span class="built_in">min</span>(x,min_stack.top());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">void</span> pop()&#123;</span><br><span class="line">        x_stack.pop();</span><br><span class="line">        min_stack.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> top()&#123;</span><br><span class="line">        <span class="keyword">return</span> x_stack.top();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> getMin()&#123;</span><br><span class="line">        <span class="keyword">return</span> min_stack.top;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>有效的括号</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isValid</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 特殊判断</span></span><br><span class="line">        <span class="keyword">if</span>(str.empty())</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span>(str.<span class="built_in">size</span>() % <span class="number">2</span> == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">char</span>&gt; s;</span><br><span class="line">        <span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(idx&lt;str.<span class="built_in">size</span>())&#123;		<span class="comment">// 依次入栈</span></span><br><span class="line">            <span class="keyword">if</span>(s.empty())</span><br><span class="line">                s.push(str[idx++]);</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(str[idx]==<span class="string">')'</span>&amp;&amp;s.top()==<span class="string">'('</span> || str[idx]==<span class="string">'&#125;'</span>&amp;&amp;s.top()==<span class="string">'&#123;'</span> || str[idx]==<span class="string">']'</span>&amp;&amp;s.top()==<span class="string">'['</span>)		<span class="comment">// 匹配， 则弹出</span></span><br><span class="line">                    s.pop();</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    s.push(str[idx]);	<span class="comment">// 继续入栈</span></span><br><span class="line">                </span><br><span class="line">                idx++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(s.empty())</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;  <span class="comment">// 执行完毕栈为空，返回true</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;	<span class="comment">// 反之返回false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>每日气温——单调栈</li>
-</ul>
-<ol>
-<li>遍历每日温度，维护一个单调栈<ol>
-<li>若栈为空或者当日温度小于等于栈顶温度则直接入栈</li>
-<li>反之，若当日温度大于栈顶温度，说明栈顶元素的升温已经找到，则将该元素出栈，计算其与当日相差天数即可</li>
-</ol>
-</li>
-<li>注意题目要求是升温的天数，而不是升温后的温度，因此栈中应该存储下表，而非温度</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dailyTemperatures</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; T)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">        <span class="keyword">int</span> n=T.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">ans</span><span class="params">(n)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i)&#123;</span><br><span class="line">            <span class="keyword">while</span>(!s.empty()&amp;&amp;T[i]&gt;T[s.top()])&#123;</span><br><span class="line">                <span class="keyword">int</span> previousIndex =s.top();</span><br><span class="line">                ans[previousIndex]=i-previousIndex;</span><br><span class="line">                s.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            s.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>逆波兰表达式</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">evalRPN</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; tokens)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">string</span> <span class="title">int2string</span><span class="params">(<span class="keyword">int</span> x)</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">string2int</span><span class="params">(<span class="built_in">string</span> s)</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">compute</span><span class="params">(<span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt;&amp;m_sta,<span class="built_in">string</span> s)</span></span>;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt;m_sta;</span><br><span class="line">        <span class="built_in">string</span> s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i=<span class="number">0</span>;i&lt;tokens.<span class="built_in">size</span>();++i)</span><br><span class="line">        &#123;</span><br><span class="line">            s=tokens[i];</span><br><span class="line">            <span class="keyword">if</span>(s==<span class="string">"+"</span>||s==<span class="string">"-"</span>||s==<span class="string">"*"</span>||s==<span class="string">"/"</span>)</span><br><span class="line">                compute(m_sta,s);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                m_sta.push(s);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans=string2int(m_sta.top());</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">int2string</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="built_in">stringstream</span> str;</span><br><span class="line">    str&lt;&lt;x;</span><br><span class="line">    str&gt;&gt;s;</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">string2int</span><span class="params">(<span class="built_in">string</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    <span class="built_in">stringstream</span> str;</span><br><span class="line">    str&lt;&lt;s;</span><br><span class="line">    str&gt;&gt;x;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">compute</span><span class="params">(<span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt;&amp;m_sta,<span class="built_in">string</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=string2int(m_sta.top());</span><br><span class="line">    m_sta.pop();</span><br><span class="line">    <span class="keyword">int</span> b=string2int(m_sta.top());</span><br><span class="line">    m_sta.pop();</span><br><span class="line">    <span class="built_in">string</span> ans;</span><br><span class="line">    <span class="keyword">if</span>(s==<span class="string">"+"</span>)</span><br><span class="line">        ans=int2string(b+a);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(s==<span class="string">"-"</span>)</span><br><span class="line">        ans=int2string(b-a);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(s==<span class="string">"*"</span>)</span><br><span class="line">        ans=int2string(b*a);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        ans=int2string(b/a);</span><br><span class="line">    m_sta.push(ans);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>LeetCode</category>

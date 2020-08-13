@@ -90,12 +90,12 @@
 
 
 
-<meta name="description" content="计算机网络的功能 数据通信 资源共享 分布式处理 提高可靠性 负载均衡  组成部分硬件、软件和协议 工作方式边缘部分（C&#x2F;S、P2P）——用户直接使用 核心部分——为边缘部分提供服务 功能组成通信子网——数据通信 资源子网——资源共享  分类范围：广域网（交换）、城域网、局域网（广播）、个人区域网 使用者：公用、专用 交换技术：电路交换、报文交换、分组交换 拓扑：总线型、星型、环形、网状 传输技术">
+<meta name="description" content="计算机网络基础概念计算机网络的功能：数据通信、资源共享、分布式处理、提高可靠性、负载均衡 组成部分：硬件、软件和协议 工作方式：边缘部分（C&#x2F;S、P2P）——用户直接使用；核心部分——为边缘部分提供服务 功能组成：通信子网——数据通信；资源子网——资源共享  分类： 范围：广域网（交换）、城域网、局域网（广播）、个人区域网 使用者：公用、专用 交换技术：电路交换、报文交换、分组交换 拓扑：总线型、">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机网络——概念、组成、功能和分类">
 <meta property="og:url" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/index.html">
 <meta property="og:site_name" content="善雯">
-<meta property="og:description" content="计算机网络的功能 数据通信 资源共享 分布式处理 提高可靠性 负载均衡  组成部分硬件、软件和协议 工作方式边缘部分（C&#x2F;S、P2P）——用户直接使用 核心部分——为边缘部分提供服务 功能组成通信子网——数据通信 资源子网——资源共享  分类范围：广域网（交换）、城域网、局域网（广播）、个人区域网 使用者：公用、专用 交换技术：电路交换、报文交换、分组交换 拓扑：总线型、星型、环形、网状 传输技术">
+<meta property="og:description" content="计算机网络基础概念计算机网络的功能：数据通信、资源共享、分布式处理、提高可靠性、负载均衡 组成部分：硬件、软件和协议 工作方式：边缘部分（C&#x2F;S、P2P）——用户直接使用；核心部分——为边缘部分提供服务 功能组成：通信子网——数据通信；资源子网——资源共享  分类： 范围：广域网（交换）、城域网、局域网（广播）、个人区域网 使用者：公用、专用 交换技术：电路交换、报文交换、分组交换 拓扑：总线型、">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/01.png">
 <meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/02.png">
@@ -111,8 +111,58 @@
 <meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/eg.png">
 <meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/eg1.png">
 <meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/TCPIP.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/5leve.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/5leve_1.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/dm.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/dend.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/loss.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/IP.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/ip2.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/ip3.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/ip4.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/ip5.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/ip6.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/ip7.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/%E4%BC%A0%E8%BE%93%E5%B1%82%E5%8A%9F%E8%83%BD1.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/%E4%BC%A0%E8%BE%93%E5%B1%82%E5%8A%9F%E8%83%BD3.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/%E4%BC%A0%E8%BE%93%E5%B1%82%E5%8A%9F%E8%83%BD2.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/%E7%AB%AF%E5%8F%A31.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/%E7%AB%AF%E5%8F%A32.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/%E7%AB%AF%E5%8F%A33.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/%E7%AB%AF%E5%8F%A34.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/tcpudp.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/UDP1.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/UDP2.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/UDP3.PNG">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/UDP4.PNG">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/UDP5.PNG">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/tcp.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/TCP1_2.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/TCP1_3.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/TCP1_4.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/tcp1.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/tcp2.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/TCP1_5.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/tcpsend.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/3woshou.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/4huishou.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/4woshou1.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/TCP1_6.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/hongfan.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/TCPNO.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/ack1.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/ack2.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/ackack.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/wwindow.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/windows.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B61.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/%E6%85%A2%E5%BC%80%E5%A7%8B%E6%8B%A5%E5%A1%9E%E9%81%BF%E5%85%8D.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/%E6%85%A2%E5%BC%80%E5%A7%8B%E6%8B%A5%E5%A1%9E%E9%81%BF%E5%85%8D1.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/%E6%85%A2%E5%BC%80%E5%A7%8B%E6%8B%A5%E5%A1%9E%E9%81%BF%E5%85%8D2.png">
+<meta property="og:image" content="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/%E5%BF%AB%E9%87%8D%E4%BC%A0%E5%BF%AB%E6%81%A2%E5%A4%8D.png">
 <meta property="article:published_time" content="2020-07-23T12:08:36.000Z">
-<meta property="article:modified_time" content="2020-07-23T13:17:21.262Z">
+<meta property="article:modified_time" content="2020-08-11T09:05:47.872Z">
 <meta property="article:author" content="善雯">
 <meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary">
@@ -424,7 +474,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  694
+                  3.2k
                 </span>
               
 
@@ -440,7 +490,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  11
                 </span>
               
             </div>
@@ -461,20 +511,13 @@
       
 
       
-        <h4 id="计算机网络的功能"><a href="#计算机网络的功能" class="headerlink" title="计算机网络的功能"></a>计算机网络的功能</h4><ol>
-<li><strong>数据通信</strong></li>
-<li><strong>资源共享</strong></li>
-<li>分布式处理</li>
-<li>提高可靠性</li>
-<li>负载均衡</li>
-</ol>
-<h4 id="组成部分"><a href="#组成部分" class="headerlink" title="组成部分"></a>组成部分</h4><p><strong>硬件、软件和协议</strong></p>
-<h4 id="工作方式"><a href="#工作方式" class="headerlink" title="工作方式"></a>工作方式</h4><p>边缘部分（C/S、P2P）——用户直接使用</p>
-<p>核心部分——为边缘部分提供服务</p>
-<h4 id="功能组成"><a href="#功能组成" class="headerlink" title="功能组成"></a>功能组成</h4><p>通信子网——数据通信</p>
-<p>资源子网——资源共享</p>
+        <h1 id="计算机网络基础概念"><a href="#计算机网络基础概念" class="headerlink" title="计算机网络基础概念"></a>计算机网络基础概念</h1><p><strong>计算机网络的功能：数据通信、资源共享</strong>、分布式处理、提高可靠性、负载均衡</p>
+<p><strong>组成部分：硬件、软件和协议</strong></p>
+<p><strong>工作方式：</strong>边缘部分（C/S、P2P）——用户直接使用；核心部分——为边缘部分提供服务</p>
+<p><strong>功能组成：</strong>通信子网——数据通信；资源子网——资源共享</p>
 <p><img src="/2020/07/23/ComputerNetwork01/01.png" style="width:60%"></p>
-<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>范围：广域网（交换）、城域网、局域网（广播）、个人区域网</p>
+<p><strong>分类：</strong></p>
+<p>范围：广域网（交换）、城域网、局域网（广播）、个人区域网</p>
 <p>使用者：公用、专用</p>
 <p>交换技术：电路交换、报文交换、分组交换</p>
 <p>拓扑：总线型、星型、环形、网状</p>
@@ -541,8 +584,132 @@
 <li>流量控制</li>
 </ol>
 <p><strong>物理层</strong>：</p>
-<h4 id="TCP-IP模型"><a href="#TCP-IP模型" class="headerlink" title="TCP/IP模型"></a>TCP/IP模型</h4><p><img src="/2020/07/23/ComputerNetwork01/TCPIP.png" style="width:60%"></p>
-<h4 id="5层体系结构"><a href="#5层体系结构" class="headerlink" title="5层体系结构"></a>5层体系结构</h4>
+<h4 id="TCP-IP模型"><a href="#TCP-IP模型" class="headerlink" title="TCP/IP模型"></a>TCP/IP模型</h4><p><img src="/2020/07/23/ComputerNetwork01/TCPIP.png"></p>
+<h4 id="5层体系结构"><a href="#5层体系结构" class="headerlink" title="5层体系结构"></a>5层体系结构</h4><p><img src="/2020/07/23/ComputerNetwork01/5leve.png"></p>
+<h5 id="封装与解封"><a href="#封装与解封" class="headerlink" title="封装与解封"></a>封装与解封</h5><p><img src="/2020/07/23/ComputerNetwork01/5leve_1.png"></p>
+<h3 id="两个公式——重点"><a href="#两个公式——重点" class="headerlink" title="两个公式——重点"></a>两个公式——重点</h3><p>物理层解决如何在连接各种计算机的传输媒体上传输数据比特流，而不是指具体的传输媒体</p>
+<p>主要任务：确定与传输媒体接口有关的一些特性——定义标准</p>
+<p>特性：机械、电气（二进制）、功能、规程</p>
+<h4 id="数据通信——传输消息"><a href="#数据通信——传输消息" class="headerlink" title="数据通信——传输消息"></a>数据通信——传输消息</h4><p><img src="/2020/07/23/ComputerNetwork01/dm.png"></p>
+<p>基本方式：<strong>单工通信、半双工通信、全双工通信</strong></p>
+<p>数据传输：<strong>串行传输、并行传输</strong></p>
+<p><img src="/2020/07/23/ComputerNetwork01/dend.png"></p>
+<h3 id="奈氏准者、香浓定理"><a href="#奈氏准者、香浓定理" class="headerlink" title="奈氏准者、香浓定理"></a>奈氏准者、香浓定理</h3><p> 失真：</p>
+<p><img src="/2020/07/23/ComputerNetwork01/loss.png"></p>
+<h2 id="网络IP地址"><a href="#网络IP地址" class="headerlink" title="网络IP地址"></a>网络IP地址</h2><p><img src="/2020/07/23/ComputerNetwork01/IP.png"></p>
+<p>IP分类</p>
+<p><img src="/2020/07/23/ComputerNetwork01/ip2.png"></p>
+<p><strong>特殊IP</strong></p>
+<p><img src="/2020/07/23/ComputerNetwork01/ip3.png"></p>
+<p>私有地址</p>
+<p><img src="/2020/07/23/ComputerNetwork01/ip4.png"></p>
+<p>联系</p>
+<p><img src="/2020/07/23/ComputerNetwork01/ip5.png"></p>
+<h2 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h2><p><img src="/2020/07/23/ComputerNetwork01/ip6.png"></p>
+<h4 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h4><p><img src="/2020/07/23/ComputerNetwork01/ip7.png"></p>
+<h1 id="1-传输层"><a href="#1-传输层" class="headerlink" title="1. 传输层"></a>1. 传输层</h1><h2 id="1-1-传输层的功能"><a href="#1-1-传输层的功能" class="headerlink" title="1.1 传输层的功能"></a>1.1 传输层的功能</h2><p><img src="/2020/07/23/ComputerNetwork01/传输层功能1.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/传输层功能3.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/传输层功能2.png"></p>
+<h2 id="1-2-传输层的寻址与端口"><a href="#1-2-传输层的寻址与端口" class="headerlink" title="1.2 传输层的寻址与端口"></a>1.2 传输层的寻址与端口</h2><p><img src="/2020/07/23/ComputerNetwork01/端口1.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/端口2.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/端口3.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/端口4.png"></p>
+<h2 id="1-3-无连接服务与面向连接服务"><a href="#1-3-无连接服务与面向连接服务" class="headerlink" title="1.3 无连接服务与面向连接服务"></a>1.3 无连接服务与面向连接服务</h2><ol>
+<li><strong>面向连接服务（TCP）</strong>：通信双方在通信之前，必须先建立连接（三次握手），在通信过程中，整个连接的情况一直被实施地监控和管理。通信结束后，应该释放这个连接（四次挥手）。<strong>双工可靠逻辑信道</strong>。增加许多占用处理机资源地开销：<strong>确认、流量控制、计时器、连接管理</strong>等——使得协议数据单元头部增大，<strong>适用于文件传输（FTP）、超文本传输协议（HTTP）、远程登陆（TELNET）</strong>。</li>
+<li><strong>无连接服务（UDP）</strong>：实体之间的通信不需要事先建立好连接，需要通信时，直接将消息发送到“网络”中，让该信息地传递在网络上尽力而为地往目的地传送。<strong>不可靠逻辑信道</strong>。<strong>简单，实时性好，适用于小文件传输（TFTP）、DNS、SNMP、实时传输协议（RTP）</strong>。</li>
+</ol>
+<p><strong>信息都对路由不可见</strong>。</p>
+<p><img src="/2020/07/23/ComputerNetwork01/tcpudp.png"></p>
+<h1 id="2-UDP协议"><a href="#2-UDP协议" class="headerlink" title="2. UDP协议"></a>2. UDP协议</h1><p>无连接用户数据报协议，仅在IP数据服务之上增加了两个基本服务：复用/分用和差错检验。</p>
+<ol>
+<li>适用于一次性传输较少数据的网络应用（QQ表情、视频通话）；</li>
+<li>维护传输可靠性需要在应用层完成。</li>
+<li>发送方对应用层交付下来的报文添加首部后就交付给IP层，既不合并，也不拆分，保留报文的边界；接收方在接收IP层的UDP用户数据报，去除首部后直接交付给应用进程——<strong>报文不可分割，是UDP数据处理的最小单位</strong>。</li>
+</ol>
+<p><img src="/2020/07/23/ComputerNetwork01/UDP1.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/UDP2.png"></p>
+<h2 id="2-1-UDP报文格式"><a href="#2-1-UDP报文格式" class="headerlink" title="2.1 UDP报文格式"></a>2.1 UDP报文格式</h2><p><img src="/2020/07/23/ComputerNetwork01/UDP3.PNG"></p>
+<h2 id="2-2-UDP校验"><a href="#2-2-UDP校验" class="headerlink" title="2.2 UDP校验"></a>2.2 UDP校验</h2><p>在UDP数据报之前增加12B的伪首部，在计算校验时临时添加，校验和就按照这个临时的UDP数据包计算。<strong>伪首部既不向上传送也不向下递交，仅为了校验和</strong>。</p>
+<p><img src="/2020/07/23/ComputerNetwork01/UDP4.PNG"></p>
+<p><strong>二进制反码运算求和再取反（还要校验数据部分）</strong>：</p>
+<p><img src="/2020/07/23/ComputerNetwork01/UDP5.PNG"></p>
+<h1 id="3-TCP协议"><a href="#3-TCP协议" class="headerlink" title="3. TCP协议"></a>3. TCP协议</h1><p>在不可靠IP层实现可靠传输——解决传输的可靠、有序、无丢失、不重复。</p>
+<p><img src="/2020/07/23/ComputerNetwork01/tcp.png"></p>
+<h2 id="3-1-TCP报文格式"><a href="#3-1-TCP报文格式" class="headerlink" title="3.1 TCP报文格式"></a>3.1 TCP报文格式</h2><p>数据传送单元：<strong>报文段</strong>——TCP首部、TCP数据，整个报文段作为IP数据报的数据部分封装在IP数据报中。首部20B 是固定的。</p>
+<p><img src="/2020/07/23/ComputerNetwork01/TCP1_2.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/TCP1_3.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/TCP1_4.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/tcp1.png"><img src="/2020/07/23/ComputerNetwork01/tcp2.png"></p>
+<h2 id="3-2-TCP连接管理（三次握手）"><a href="#3-2-TCP连接管理（三次握手）" class="headerlink" title="3.2 TCP连接管理（三次握手）"></a>3.2 TCP连接管理（三次握手）</h2><p><img src="/2020/07/23/ComputerNetwork01/TCP1_5.png"></p>
+<p>TCP把连接作为最基本的抽象，每条TCP连接有两个端点，TCP连接的端点不是主机、IP地址、应用进程、传输层的协议端口，<strong>TCP连接的端口成为套接字或插口</strong>。</p>
+<p>TCP连接的建立应采用客户机/服务器方式，主动发起连接的应用进程称为客户机，被动等待连接建立的应用进程称为服务器。</p>
+<p><img src="/2020/07/23/ComputerNetwork01/tcpsend.png"></p>
+<ol>
+<li><p><strong>第一步</strong>：<strong>请求报文段：SYN=1，ACK=0，seq=x</strong>。</p>
+<p>客户机的TCP首先向服务器的TCP发送一个请求报文段。<strong>不含应用层数据，SYN=1</strong>。客户机随机选择一个起始序列号（连接请求报文段不携带数据，但消耗一个序号段）。</p>
+</li>
+<li><p><strong>第二步</strong>：<strong>服务器确认报文段：SYN=1，ACK=1，seq=y，ack=x+1（确认号字段）</strong></p>
+<p>服务器的TCP收到连接请求报文段后，如果同意连接，就像客户机发回确认，并为该TCP连接分配TCP<strong>缓存和变量</strong>。在<strong>确认报文段中，SYN和ACK位都被置为1</strong>。（确认报文段不携带数据，但消耗一个序号段）</p>
+</li>
+<li><p><strong>第三步</strong>：<strong>客户端确认报文段：SYN=1，ACK=1，seq=x+1，ack=y+1（确认号字段）</strong>。</p>
+<p>当客户端收到确认报文段之后，还要向服务器给出确认，并且也要给该连接<strong>分配缓存和变量</strong>。（可以携带数据，若不携带则不消耗序号）</p>
+</li>
+</ol>
+<p><img src="/2020/07/23/ComputerNetwork01/3woshou.png"></p>
+<p>成功进行以上三步，就建立了TCP连接。接下来就可以传输应用层数据，TCP提供的时双工通信，因此通信双方的应用进程任意时刻都能收发数据。<strong>服务器资源是在第二次握手分配，客户端资源在第三次握手分配</strong>。</p>
+<h2 id="3-3-TCP连接的释放（四次挥手）"><a href="#3-3-TCP连接的释放（四次挥手）" class="headerlink" title="3.3 TCP连接的释放（四次挥手）"></a>3.3 TCP连接的释放（四次挥手）</h2><p><img src="/2020/07/23/ComputerNetwork01/4huishou.png"></p>
+<ol>
+<li><p><strong>第一步</strong>：<strong>客户机释放连接报文段：FIN=1，seq=u</strong>（u等于前面已经传送过去的数据最后一个字节序号+1）</p>
+<p>客户机打算关闭连接，向其TCP<strong>发送一个连接释放报文段</strong>，并<strong>停止发送数据</strong>，<strong>主动关闭TCP连接</strong>。<strong>发送FIN报文时，发送FIN的一端不能再发送数据</strong>，即关闭了双工中的一条数据通路，但是<strong>对方还可以发送数据</strong>。</p>
+</li>
+<li><p><strong>第二步</strong>：<strong>服务器确认报文：ack=u+1</strong></p>
+<p>服务器自己的序号是v，等于已经传过的数据的最后一个字节的序号+1。服务器收到连接释放报文后发出确认，即从客户端到服务器指个方向的连接释放。<strong>TCP处于半关闭状态</strong>，若服务器继续发送数据，客户端仍要接收。</p>
+</li>
+<li><p><strong>第三步</strong>：<strong>服务器释放报文段：FIN=1</strong>。</p>
+<p>若服务器已经没有要向客户机发送的数据，就通知TCP释放此链接，此时其发处FIN=1的连接释放报文段。</p>
+</li>
+<li><p><strong>第四步</strong>：<strong>客户机确认报文：ACK=1，ack=w+1，seq=u+1</strong>。</p>
+<p>客户机收到连接释放报文段，必须发出确认。TCP连接还未释放，<strong>必须经过时间等待计时器设置的时间2MSL后，A才进入连接关闭状态</strong>。</p>
+</li>
+</ol>
+<p><img src="/2020/07/23/ComputerNetwork01/4woshou1.png"></p>
+<h1 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h1><p><img src="/2020/07/23/ComputerNetwork01/TCP1_6.png"></p>
+<h2 id="4-1-洪泛攻击"><a href="#4-1-洪泛攻击" class="headerlink" title="4.1 洪泛攻击"></a>4.1 洪泛攻击</h2><p><img src="/2020/07/23/ComputerNetwork01/hongfan.png"></p>
+<h1 id="5-TCP可靠传输"><a href="#5-TCP可靠传输" class="headerlink" title="5. TCP可靠传输"></a>5. TCP可靠传输</h1><p>保证接收方进程从缓存区中读取的字节流与发送方发出的字节流完全一样，使用<strong>校验</strong>、<strong>序号</strong>、<strong>确认</strong>、<strong>重传</strong>等机制。</p>
+<p><strong>1. 序号</strong></p>
+<p>首部序号字段用于保证数据能<strong>有序地提交给应用层</strong>，TCP把数据视为一个<strong>无结构但有序地字节流</strong>，序号建立在传送的字节流上，而不建立在报文段上。序号字段的值就是指本报文段所发送的数据的第一个字节的编号。<img src="/2020/07/23/ComputerNetwork01/TCPNO.png"></p>
+<p><strong>2. 确认</strong></p>
+<p>TCP首部确认号是<strong>期望收到对方的下一个报文的数据的第一个字节的序号</strong>。<strong>发送缓冲区会继续存储那些以发送但未收到确认的报文段，以便在需要时重传</strong>。使用<strong>累积确认</strong>，即TCP<strong>只确认数据流中至第一个丢失字节为止的字节</strong>。如：B收到了A发送的0~2及6~7报文段，由于某种原因，B还未收到3~5，此时<strong>B仍在等待字节3（</strong>和其后面的字节），B到A的下一个报文段将<strong>确认号置为3</strong>。</p>
+<p><img src="/2020/07/23/ComputerNetwork01/ack1.png"><img src="/2020/07/23/ComputerNetwork01/ack2.png"></p>
+<p><strong>3. 重传</strong></p>
+<p>两种事件：超时、冗余ACK</p>
+<p><strong>超时</strong>：<strong>在规定时间内没受到接收方的确认就需要重传——超时重传</strong>TCP每发送一个报文段，就对这个报文段设置一次计时器。计时器设置的重传时间到期但还未收到确认是，就要重传这个报文段。</p>
+<p><strong>冗余ACK</strong>：超时重传的超时周期太长。在超时发生之前，通过注意冗余ACK来检测丢包的情况。<strong>冗余：再次确认某个报文段的ACK，而发送方先前已经受到过该报文的确认</strong>。每当比期望到达序列号大的失序报文到达时，及发送一个冗余ACK，指明下一个期望收到的报文。</p>
+<p><img src="/2020/07/23/ComputerNetwork01/ackack.png"></p>
+<h2 id="5-1-TCP流量控制——滑动窗口"><a href="#5-1-TCP流量控制——滑动窗口" class="headerlink" title="5.1 TCP流量控制——滑动窗口"></a>5.1 TCP流量控制——滑动窗口</h2><p>消除发送方使接收方缓存溢出的可能性——<strong>速度匹配服务</strong>。<strong>利用滑动窗口机制实现流量控制，大小可动态变化</strong></p>
+<p><img src="/2020/07/23/ComputerNetwork01/wwindow.png"></p>
+<p>主机A向主机B发送数据，B说：我的rwnd=400字节</p>
+<p><img src="/2020/07/23/ComputerNetwork01/windows.png"></p>
+<h2 id="5-2-TCP拥塞控制"><a href="#5-2-TCP拥塞控制" class="headerlink" title="5.2 TCP拥塞控制"></a>5.2 TCP拥塞控制</h2><p><strong>防止过多的数据注入网络，保证网络中的路由或链路不致过载</strong>。与流量控制相似，都通过控制发送方发送数据的速率来达到控制效果。</p>
+<p><strong>区别</strong>：</p>
+<ul>
+<li><strong>拥塞控制</strong>——<strong>让网络能够承受现有的网络负荷</strong>，是一个<strong>全局性</strong>的过程，涉及所有主机、所有路由器、以及与降低网络传输性能有关的所有因素。</li>
+<li><strong>流量控制</strong>——<strong>抑制发送端发送数据的速率，以便接收方来得及接收</strong>。<strong>点对点的通信量控制</strong>，即接收端和发送端。</li>
+</ul>
+<p><img src="/2020/07/23/ComputerNetwork01/拥塞控制.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/拥塞控制1.png"></p>
+<p><strong>慢开始和拥塞避免</strong>：接收窗口的大小可根据TCP报文首部的窗口字段通知发送方，但是发送方如何维护？</p>
+<p><img src="/2020/07/23/ComputerNetwork01/慢开始拥塞避免.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/慢开始拥塞避免1.png"></p>
+<p><img src="/2020/07/23/ComputerNetwork01/慢开始拥塞避免2.png"></p>
+<p><strong>快重传和快恢复</strong>：对慢开始和拥塞避免算法的改进</p>
+<p><img src="/2020/07/23/ComputerNetwork01/快重传快恢复.png"></p>
+<p><strong>流量控制</strong>：发送方的数据量由就受访定</p>
+<p><strong>拥塞控制</strong>：发送方自己通过检测网络状况决定</p>
+<p><strong>超时</strong>：慢开始和拥塞避免</p>
+<p><strong>冗余</strong>：快重传快恢复</p>
+<p>发送方窗口的实际大小由流量控制和拥塞控制共同决定，且<strong>取rwnd接收窗口和cwnd拥塞窗口中较小</strong>的。</p>
+
       
     </div>
     
@@ -572,7 +739,7 @@
   <p><span>本文标题:</span><a href="/2020/07/23/ComputerNetwork01/">计算机网络——概念、组成、功能和分类</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 善雯 的个人博客">善雯</a></p>
   <p><span>发布时间:</span>2020年07月23日 - 20:07</p>
-  <p><span>最后更新:</span>2020年07月23日 - 21:07</p>
+  <p><span>最后更新:</span>2020年08月11日 - 17:08</p>
   <p><span>原始链接:</span><a href="/2020/07/23/ComputerNetwork01/" title="计算机网络——概念、组成、功能和分类">http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://shanwenyang.github.io/2020/07/23/ComputerNetwork01/"  aria-label="复制成功！"></i></span>
   </p>
@@ -656,6 +823,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/27/Offer-Week6/" rel="prev" title="Offer-Week6">
+                Offer-Week6 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -741,7 +912,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -808,6 +979,10 @@
         
         
           <li>
+            <a href="/2020/07/27/Offer-Week6/" title="Offer-Week6" target="_blank">Offer-Week6</a>
+          </li>
+        
+          <li>
             <a href="/2020/07/23/ComputerNetwork01/" title="计算机网络——概念、组成、功能和分类" target="_blank">计算机网络——概念、组成、功能和分类</a>
           </li>
         
@@ -821,10 +996,6 @@
         
           <li>
             <a href="/2020/07/14/Offer-Week3/" title="剑指Offer——Week3" target="_blank">剑指Offer——Week3</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/12/DataStructure-Search/" title="数据结构——查找" target="_blank">数据结构——查找</a>
           </li>
         
       </ul>
@@ -847,7 +1018,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算机网络的功能"><span class="nav-number">1.</span> <span class="nav-text">计算机网络的功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组成部分"><span class="nav-number">2.</span> <span class="nav-text">组成部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工作方式"><span class="nav-number">3.</span> <span class="nav-text">工作方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#功能组成"><span class="nav-number">4.</span> <span class="nav-text">功能组成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分类"><span class="nav-number">5.</span> <span class="nav-text">分类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准化工作及其组织"><span class="nav-number"></span> <span class="nav-text">标准化工作及其组织</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能指标"><span class="nav-number"></span> <span class="nav-text">性能指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分层结构"><span class="nav-number"></span> <span class="nav-text">分层结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ISO-OSI参考模型"><span class="nav-number">1.</span> <span class="nav-text">ISO&#x2F;OSI参考模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP-IP模型"><span class="nav-number">2.</span> <span class="nav-text">TCP&#x2F;IP模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5层体系结构"><span class="nav-number">3.</span> <span class="nav-text">5层体系结构</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机网络基础概念"><span class="nav-number">1.</span> <span class="nav-text">计算机网络基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标准化工作及其组织"><span class="nav-number">1.0.1.</span> <span class="nav-text">标准化工作及其组织</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能指标"><span class="nav-number">1.0.2.</span> <span class="nav-text">性能指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分层结构"><span class="nav-number">1.0.3.</span> <span class="nav-text">分层结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ISO-OSI参考模型"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">ISO&#x2F;OSI参考模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP-IP模型"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">TCP&#x2F;IP模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5层体系结构"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">5层体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#封装与解封"><span class="nav-number">1.0.3.3.1.</span> <span class="nav-text">封装与解封</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个公式——重点"><span class="nav-number">1.0.4.</span> <span class="nav-text">两个公式——重点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据通信——传输消息"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">数据通信——传输消息</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#奈氏准者、香浓定理"><span class="nav-number">1.0.5.</span> <span class="nav-text">奈氏准者、香浓定理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络IP地址"><span class="nav-number">1.1.</span> <span class="nav-text">网络IP地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子网划分"><span class="nav-number">1.2.</span> <span class="nav-text">子网划分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#子网掩码"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">子网掩码</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-传输层"><span class="nav-number">2.</span> <span class="nav-text">1. 传输层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-传输层的功能"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 传输层的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-传输层的寻址与端口"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 传输层的寻址与端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-无连接服务与面向连接服务"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 无连接服务与面向连接服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-UDP协议"><span class="nav-number">3.</span> <span class="nav-text">2. UDP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-UDP报文格式"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 UDP报文格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-UDP校验"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 UDP校验</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-TCP协议"><span class="nav-number">4.</span> <span class="nav-text">3. TCP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-TCP报文格式"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 TCP报文格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-TCP连接管理（三次握手）"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 TCP连接管理（三次握手）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-TCP连接的释放（四次挥手）"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 TCP连接的释放（四次挥手）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-总结"><span class="nav-number">5.</span> <span class="nav-text">4. 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-洪泛攻击"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 洪泛攻击</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-TCP可靠传输"><span class="nav-number">6.</span> <span class="nav-text">5. TCP可靠传输</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-TCP流量控制——滑动窗口"><span class="nav-number">6.1.</span> <span class="nav-text">5.1 TCP流量控制——滑动窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-TCP拥塞控制"><span class="nav-number">6.2.</span> <span class="nav-text">5.2 TCP拥塞控制</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -881,7 +1052,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">72.4k</span>
+    <span title="Site words total count">77.8k</span>
   
   -->
   
